@@ -1,0 +1,47 @@
+{% extends "questions/question_base.html" %}
+
+{% block question_content %}
+<div class="col-md-8">
+   <h3>{{ question.question|safe }}</h3>
+
+    <div class="media-body">
+		<strong>Posted by: {{ question.user.username }}</strong>
+		<h5 class="media-heading">
+			<span class="username"><a href="{% url 'questions:for_user' username=question.user.username %}">@{{ question.user.username }}</a></span>
+			<time class="time"><a href="{% url 'questions:single' username=question.user.username pk=question.pk %}">{{ question.created_at }}</a></time>
+			{% if question.group %}
+			<span class="group-name">in <a href="{% url 'groups:all' %}">{{ question.group.name }}</a></span>
+			{% endif %}
+		</h5>
+    </div>
+
+<hr>
+  <a class="btn btn-primary btn-comment" href="{% url 'questions:add_answer_to_question' username=question.user.username pk=question.pk %}">Add answer</a>
+<hr>
+
+  <div class="container">
+
+  {% for answer in question.answer_set.all %}
+  <br>
+      {% if user.is_authenticated or answer.approved_answer %}
+
+              {% if not answer.approved_answer %}
+                  <a class="btn btn-default" href="{% url 'questions:answer_remove' username=question.user.username pk=answer.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                  <a class="btn btn-default" href="{% url 'questions:answer_approve' username=question.user.username pk=answer.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+              {% endif %}
+
+          <p>{{ answer.answer|safe|linebreaks }}</p>
+      <p><strong>Posted by: </strong>{{ answer.author }}</p>
+      <p><strong>Date: </strong>{{ answer.created_at }}</p>
+          <!--<span class="username">Posted by: <a href="{% url 'questions:for_user' username=question.user.username %}">{{ answer.author }}</a></span><br>-->
+           <!--<time class="time"><a href="{% url 'questions:single' username=question.user.username pk=question.pk %}">{{ answer.created_at }}</a></time>-->
+      <hr>
+
+      {% endif %}
+    {% empty %}
+      <br>
+      <p>No answers posted.</p>
+  {% endfor %}
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "questions/question_base.html" %}
+
+{% block question_content %}
+<div class="col-md-8">
+	{% for question in unanswered_questions %}
+  {% include "questions/question.html" %}
+	{% endfor %}
+</div>
+{% endblock %}

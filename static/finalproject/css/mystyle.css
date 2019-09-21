@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: black;
+    color: white;
+}
+
+.navbar-brand{
+    font-size: 25px;
+    text-shadow: 2px 2px 5px red;
+    font-family: 'Satisfy', cursive;
+}

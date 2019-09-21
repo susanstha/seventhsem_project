@@ -1,0 +1,29 @@
+{% load hitcount_tags %}
+{% get_hit_count for question as total_hits %}
+
+<div class="question media">
+	<h3><a href="{% url 'questions:single' username=question.user.username pk=question.pk %}">{{ question.question|safe }}</a></h3>
+	<div class="media-body">
+		<strong>Posted by: {{ question.user.username }}</strong>
+		<h5 class="media-heading">
+			<span class="username"><a href="{% url 'questions:for_user' username=question.user.username %}">@{{ question.user.username }}</a></span>
+			<time class="time"><a href="{% url 'questions:single' username=question.user.username pk=question.pk %}">{{ question.created_at }}</a></time>
+			{% if question.group %}
+			<span class="group-name">in <a href="{% url 'groups:all' %} ">{{ question.group.name }}</a></span>
+			{% endif %}
+		</h5>
+		<strong>No of Hits: </strong>{{ total_hits }}
+
+
+
+
+		<div class="media-footer">
+			{% if user.is_authenticated and question.user == user and not hide_delete %}
+				<a href="{% url 'questions:delete' pk=question.pk %}" title="delete" class="btn btn-simple">
+					<span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+					<span class="text-danger icon-label">Delete</span>
+				</a>
+			{% endif %}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="questions-page">
+	<div class="container">
+		<div class="row">
+			{% block prequestion%}{% endblock %}
+			{% block question_content %}{% endblock %}
+			{% block question_question%}{% endblock %}
+		</div>
+	</div>
+</div>
+{% endblock %}

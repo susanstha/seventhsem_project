@@ -1,0 +1,17 @@
+{% extends "questions/question_base.html" %}
+
+{% load bootstrap3 %}
+
+{% block question_content %}
+<h4>Add New Answer</h4>
+<form method="POST" id="answerForm">
+	{% csrf_token %}
+	<!--{{form.as_p}}-->
+	{% bootstrap_form form %}
+	<input type="submit" value="Post" class="btn btn-primary btn-large">
+</form>
+
+<!--<script>var editor = new MediumEditor('.editable');</script>-->
+{% endblock %}
+
+
